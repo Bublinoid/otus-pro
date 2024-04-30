@@ -26,6 +26,8 @@ public class TestRunner {
                 beforeSuiteMethods.get(0).invoke(instance);
             }
 
+
+                 // проверка что приоритет должен лежать в пределах 1-10
             testMethods.sort(Comparator.comparingInt(m -> {
                 int priority = m.getAnnotation(Test.class).priority();
                 if (priority < 1 || priority > 10) {
