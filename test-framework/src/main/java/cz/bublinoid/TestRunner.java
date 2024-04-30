@@ -26,11 +26,16 @@ public class TestRunner {
                 beforeSuiteMethods.get(0).invoke(instance);
             }
 
-            testMethods.sort(Comparator.comparingInt(m -> m.getAnnotation(Test.class).priority()));
+            testMethods.sort(Comparator.comparingInt(m -> {
+                int priority = m.getAnnotation(Test.class).priority();
+                if (priority < 1 || priority > 10) {
+                    throw new IllegalArgumentException("Priority must be between 1 and 10");
+                }
+                return priority;
+            }));
 
             int successful = 0;
             int failed = 0;
-
 
             for (Method testMethod : testMethods) {
                 try {
@@ -45,7 +50,6 @@ public class TestRunner {
             if (!afterSuiteMethods.isEmpty()) {
                 afterSuiteMethods.get(0).invoke(instance);
             }
-
 
             System.out.println("Tests run: " + (successful + failed));
             System.out.println("Successful: " + successful);
