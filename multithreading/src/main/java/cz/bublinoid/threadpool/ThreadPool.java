@@ -6,7 +6,7 @@ public class ThreadPool {
     private final WorkerThread[] threads;
     private final LinkedList<Runnable> taskQueue;
     private final Object lock;
-    private boolean isShutdown;
+    private volatile boolean isShutdown;
 
     public ThreadPool(int capacity) {
         this.threads = new WorkerThread[capacity];
@@ -15,12 +15,12 @@ public class ThreadPool {
         this.isShutdown = false;
 
         for (int i = 0; i < capacity; i++) {
-            threads[i] = new WorkerThread(taskQueue, lock);
+            threads[i] = new WorkerThread(taskQueue, lock, this);
             threads[i].start();
         }
     }
 
-    public void execute(Runnable task) {
+    public synchronized void execute(Runnable task) {
         synchronized (lock) {
             if (isShutdown) {
                 throw new IllegalStateException("ThreadPool is shutdown. No new tasks can be accepted.");
@@ -30,19 +30,17 @@ public class ThreadPool {
         }
     }
 
-    public void shutdown() {
+    public synchronized void shutdown() {
         synchronized (lock) {
             isShutdown = true;
-
-            lock.notifyAll();
-
             for (WorkerThread thread : threads) {
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                thread.interrupt();
             }
+            lock.notifyAll();
         }
+    }
+
+    public boolean isShutdown() {
+        return isShutdown;
     }
 }
