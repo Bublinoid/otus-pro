@@ -1,2 +1,4 @@
 rootProject.name = 'otus-home-work-pro'
+include 'jpa-hibernate'
+include 'jpa-hibernate'
 
