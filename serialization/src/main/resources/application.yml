@@ -1,0 +1,6 @@
+sms:
+  file:
+    path: sms.json
+    output:
+      json: serialization/src/main/resources/output/output.json
+      xml: serialization/src/main/resources/output/output.xml
