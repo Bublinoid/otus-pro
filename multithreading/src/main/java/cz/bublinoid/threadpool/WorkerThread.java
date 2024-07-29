@@ -1,19 +1,20 @@
 package cz.bublinoid.threadpool;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class WorkerThread extends Thread {
 
-    private final LinkedList<Runnable> taskQueue;
+    private final List<Runnable> taskQueue;
     private final Object lock;
     private final ThreadPool threadPool;
 
-    public WorkerThread(LinkedList<Runnable> taskQueue, Object lock, ThreadPool threadPool) {
+    public WorkerThread(List<Runnable> taskQueue, Object lock, ThreadPool threadPool) {
         this.taskQueue = taskQueue;
         this.lock = lock;
         this.threadPool = threadPool;
     }
 
+    @Override
     public void run() {
         try {
             while (true) {
@@ -25,7 +26,7 @@ public class WorkerThread extends Thread {
                     if (threadPool.isShutdown() && taskQueue.isEmpty()) {
                         break;
                     }
-                    task = taskQueue.removeFirst();
+                    task = taskQueue.remove(0);
                 }
                 try {
                     task.run();
