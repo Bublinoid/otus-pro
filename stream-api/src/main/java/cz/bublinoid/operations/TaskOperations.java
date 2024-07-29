@@ -11,7 +11,7 @@ public class TaskOperations {
     public List<Task> getTaskByStatus(List<Task> tasks, String status) {
         return tasks.stream()
                 .filter(task -> task.getStatus().equals(status))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public boolean doesTaskExist(List<Task> tasks, int id) {
@@ -22,7 +22,7 @@ public class TaskOperations {
     public List<Task> getSortedTaskByStatus(List<Task> tasks) {
         return tasks.stream()
                 .sorted(Comparator.comparing(Task::getStatus))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public long countTasksByStatus(List<Task> tasks, String status) {
