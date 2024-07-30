@@ -14,12 +14,15 @@ public class ItemsDao {
         this.connection = DataSource.getInstance().getConnection();
     }
 
-    public void createItem(Item item) throws SQLException {
+    public void createItemsBatch(List<Item> items) throws SQLException {
         String sql = "INSERT INTO items (title, price) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, item.getTitle());
-            stmt.setDouble(2, item.getPrice());
-            stmt.executeUpdate();
+            for (Item item : items) {
+                stmt.setString(1, item.getTitle());
+                stmt.setDouble(2, item.getPrice());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
         }
     }
 
