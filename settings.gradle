@@ -1,4 +1,5 @@
 rootProject.name = 'otus-home-work-pro'
+
 include 'multithreading'
 include 'stream-api'
 include 'database-interaction'
@@ -13,4 +14,3 @@ include 'spring-boot-1'
 include 'spring-context'
 include 'test-framework'
 include 'web-server'
-
