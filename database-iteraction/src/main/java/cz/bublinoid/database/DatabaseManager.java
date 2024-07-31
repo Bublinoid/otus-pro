@@ -16,6 +16,9 @@ public class DatabaseManager {
     }
 
     public static void executeStatement(String sql) throws SQLException {
+        if (sql == null) {
+            throw new IllegalArgumentException("SQL statement cannot be null");
+        }
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
@@ -23,6 +26,9 @@ public class DatabaseManager {
     }
 
     public static List<Product> executeSelectStatement(String sql) throws SQLException {
+        if (sql == null) {
+            throw new IllegalArgumentException("SQL statement cannot be null");
+        }
         List<Product> products = new ArrayList<>();
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
@@ -39,6 +45,9 @@ public class DatabaseManager {
     }
 
     public static void executePreparedStatement(String sql, Object... params) throws SQLException {
+        if (sql == null) {
+            throw new IllegalArgumentException("SQL statement cannot be null");
+        }
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
