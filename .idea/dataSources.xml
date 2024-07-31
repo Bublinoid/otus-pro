@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="pattern-2@localhost" uuid="d282db3c-c918-4af7-bc37-6572e39af5b7">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/pattern-2</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../Gradle/gradle-8.4" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/multithreading" />
+            <option value="$PROJECT_DIR$/stream-api" />
+            <option value="$PROJECT_DIR$/database-interaction" />
+            <option value="$PROJECT_DIR$/http-server" />
+            <option value="$PROJECT_DIR$/jdbc" />
+            <option value="$PROJECT_DIR$/jpa-hibernate" />
+            <option value="$PROJECT_DIR$/jpql" />
+            <option value="$PROJECT_DIR$/pattern-1" />
+            <option value="$PROJECT_DIR$/pattern-2" />
+            <option value="$PROJECT_DIR$/serialization" />
+            <option value="$PROJECT_DIR$/spring-boot-1" />
+            <option value="$PROJECT_DIR$/spring-context" />
+            <option value="$PROJECT_DIR$/test-framework" />
+            <option value="$PROJECT_DIR$/web-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
   </component>
 </project>
