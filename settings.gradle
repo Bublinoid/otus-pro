@@ -1,4 +1,5 @@
 rootProject.name = 'otus-home-work-pro'
+include 'spring-context'
 
 include 'web-server'
 include 'database-iteraction'
