@@ -1,6 +1,7 @@
 package ru.bublinoid.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Client {
     private Address address;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Phone> phones;
+    private List<Phone> phones = new ArrayList<>();
 
     public Long getId() {
         return id;
