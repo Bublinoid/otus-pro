@@ -10,8 +10,12 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public Iterable<Product> findAll() {
         return productRepository.findAll();
@@ -28,5 +32,4 @@ public class ProductService {
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
-
 }
