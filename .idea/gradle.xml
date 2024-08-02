@@ -27,6 +27,14 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/jdbc" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/jdbc" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
