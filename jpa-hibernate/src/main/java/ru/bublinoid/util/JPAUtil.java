@@ -7,18 +7,25 @@ import javax.persistence.Persistence;
 public class JPAUtil {
 
     private static final String PERSISTENCE_UNIT_NAME = "customer-product-unit";
-    private static EntityManagerFactory emf;
+    private static volatile EntityManagerFactory emf;
 
-    static {
-        try {
-            emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExceptionInInitializerError("Initial EntityManagerFactory creation failed." + e);
-        }
+    private JPAUtil() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     public static EntityManager getEntityManager() {
+        if (emf == null) {
+            synchronized (JPAUtil.class) {
+                if (emf == null) {
+                    try {
+                        emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        throw new ExceptionInInitializerError("Initial EntityManagerFactory creation failed: " + e);
+                    }
+                }
+            }
+        }
         return emf.createEntityManager();
     }
 

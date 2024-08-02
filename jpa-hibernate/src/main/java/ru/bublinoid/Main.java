@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static CustomerDAO customerDAO = new CustomerDAO();
-    private static ProductDAO productDAO = new ProductDAO();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        initializeDatabase();
+        CustomerDAO customerDAO = new CustomerDAO();
+        ProductDAO productDAO = new ProductDAO();
+        initializeDatabase(customerDAO, productDAO);
+
         try {
             while (true) {
                 printMenu();
@@ -23,16 +24,16 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        viewCustomerProducts();
+                        viewCustomerProducts(customerDAO, productDAO);
                         break;
                     case 2:
-                        viewProductCustomers();
+                        viewProductCustomers(customerDAO, productDAO);
                         break;
                     case 3:
-                        deleteCustomer();
+                        deleteCustomer(customerDAO);
                         break;
                     case 4:
-                        deleteProduct();
+                        deleteProduct(productDAO);
                         break;
                     case 0:
                         JPAUtil.close();
@@ -55,7 +56,7 @@ public class Main {
         System.out.print("Enter your choice: ");
     }
 
-    private static void viewCustomerProducts() {
+    private static void viewCustomerProducts(CustomerDAO customerDAO, ProductDAO productDAO) {
         System.out.print("Enter customer ID: ");
         Long customerId = Long.parseLong(scanner.nextLine());
         Customer customer = customerDAO.findById(customerId);
@@ -69,7 +70,7 @@ public class Main {
         }
     }
 
-    private static void viewProductCustomers() {
+    private static void viewProductCustomers(CustomerDAO customerDAO, ProductDAO productDAO) {
         System.out.print("Enter product ID: ");
         Long productId = Long.parseLong(scanner.nextLine());
         Product product = productDAO.findById(productId);
@@ -83,7 +84,7 @@ public class Main {
         }
     }
 
-    private static void deleteCustomer() {
+    private static void deleteCustomer(CustomerDAO customerDAO) {
         System.out.print("Enter customer ID: ");
         Long customerId = Long.parseLong(scanner.nextLine());
         Customer customer = customerDAO.findById(customerId);
@@ -96,7 +97,7 @@ public class Main {
         }
     }
 
-    private static void deleteProduct() {
+    private static void deleteProduct(ProductDAO productDAO) {
         System.out.print("Enter product ID: ");
         Long productId = Long.parseLong(scanner.nextLine());
         Product product = productDAO.findById(productId);
@@ -109,7 +110,7 @@ public class Main {
         }
     }
 
-    private static void initializeDatabase() {
+    private static void initializeDatabase(CustomerDAO customerDAO, ProductDAO productDAO) {
         Product product1 = new Product();
         product1.setName("Laptop");
         product1.setPrice(1200.00);

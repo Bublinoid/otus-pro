@@ -24,6 +24,11 @@ public class CustomerDAO {
             em.getTransaction().begin();
             em.persist(customer);
             em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
         } finally {
             em.close();
         }
@@ -36,6 +41,11 @@ public class CustomerDAO {
             customer = em.merge(customer);
             em.remove(customer);
             em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
         } finally {
             em.close();
         }
