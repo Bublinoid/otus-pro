@@ -9,10 +9,19 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/jpa-hibernate" />
             <option value="$PROJECT_DIR$/pattern-1" />
             <option value="$PROJECT_DIR$/stream-api" />
             <option value="$PROJECT_DIR$/test-framework" />
             <option value="$PROJECT_DIR$/spring-context" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/spring-boot-1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/spring-boot-1" />
           </set>
         </option>
       </GradleProjectSettings>
