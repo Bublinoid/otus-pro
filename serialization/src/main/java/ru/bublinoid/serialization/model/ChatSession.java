@@ -17,12 +17,11 @@ public class ChatSession {
     private String displayName;
 
     @JsonProperty("is_deleted")
-    private String isDeleted;
+    private boolean isDeleted;
 
     @JsonProperty("members")
     private List<Member> members;
 
     @JsonProperty("messages")
     private List<Message> messages;
-
 }
