@@ -27,7 +27,6 @@ public class DataTransformer {
             }
         }
 
-        // Убираем дубликаты и сортируем
         return transformedMessages.stream()
                 .distinct()
                 .sorted(Comparator.comparing(TransformedMessage::getSendDate))

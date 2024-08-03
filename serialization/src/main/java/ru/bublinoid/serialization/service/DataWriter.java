@@ -7,22 +7,22 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class DataWriter {
     public static void writeJson(List<TransformedMessage> messages, String filePath) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT); // Включение форматирования JSON
-        File file = new File(filePath);
-        file.getParentFile().mkdirs(); // Создание директорий, если их нет
-        mapper.writeValue(file, messages);
+        writeFile(new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT), messages, filePath);
     }
 
     public static void writeXml(List<TransformedMessage> messages, String filePath) throws IOException {
-        XmlMapper mapper = new XmlMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        writeFile(new XmlMapper().enable(SerializationFeature.INDENT_OUTPUT), messages, filePath);
+    }
+
+    private static <T> void writeFile(ObjectMapper mapper, List<T> messages, String filePath) throws IOException {
+        Files.createDirectories(Paths.get(filePath).getParent());
         File file = new File(filePath);
-        file.getParentFile().mkdirs();
         mapper.writeValue(file, messages);
     }
 }

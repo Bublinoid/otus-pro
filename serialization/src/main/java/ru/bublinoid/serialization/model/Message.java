@@ -39,13 +39,13 @@ public class Message {
     private String handleId;
 
     @JsonProperty("has_dd_results")
-    private String hasDdResults;
+    private boolean hasDdResults;
 
     @JsonProperty("is_deleted")
-    private String isDeleted;
+    private boolean isDeleted;
 
     @JsonProperty("is_from_me")
-    private String isFromMe;
+    private boolean isFromMe;
 
     @JsonProperty("send_status")
     private String sendStatus;
