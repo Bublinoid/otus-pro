@@ -6,7 +6,9 @@ import ru.bublinoid.serialization.service.DataTransformer;
 import ru.bublinoid.serialization.service.JsonReader;
 import ru.bublinoid.serialization.service.DataWriter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,24 +31,37 @@ public class SmsController {
     private String xmlOutputPath;
 
     @GetMapping(value = "/transformed", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public List<TransformedMessage> getTransformedMessages(@RequestParam(defaultValue = "json") String format) throws IOException {
-        SmsData smsData = JsonReader.readJson(filePath);
-        return DataTransformer.transform(smsData);
+    public ResponseEntity<List<TransformedMessage>> getTransformedMessages(@RequestParam(defaultValue = "json") String format) {
+        try {
+            SmsData smsData = JsonReader.readJson(filePath);
+            List<TransformedMessage> transformedMessages = DataTransformer.transform(smsData);
+            return ResponseEntity.ok(transformedMessages);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/saveJson")
-    public String saveTransformedMessagesAsJson() throws IOException {
-        SmsData smsData = JsonReader.readJson(filePath);
-        List<TransformedMessage> transformedMessages = DataTransformer.transform(smsData);
-        DataWriter.writeJson(transformedMessages, jsonOutputPath);
-        return "Transformed messages saved as JSON.";
+    public ResponseEntity<String> saveTransformedMessagesAsJson() {
+        try {
+            SmsData smsData = JsonReader.readJson(filePath);
+            List<TransformedMessage> transformedMessages = DataTransformer.transform(smsData);
+            DataWriter.writeJson(transformedMessages, jsonOutputPath);
+            return ResponseEntity.ok("Transformed messages saved as JSON.");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving transformed messages as JSON: " + e.getMessage());
+        }
     }
 
     @GetMapping("/saveXml")
-    public String saveTransformedMessagesAsXml() throws IOException {
-        SmsData smsData = JsonReader.readJson(filePath);
-        List<TransformedMessage> transformedMessages = DataTransformer.transform(smsData);
-        DataWriter.writeXml(transformedMessages, xmlOutputPath);
-        return "Transformed messages saved as XML.";
+    public ResponseEntity<String> saveTransformedMessagesAsXml() {
+        try {
+            SmsData smsData = JsonReader.readJson(filePath);
+            List<TransformedMessage> transformedMessages = DataTransformer.transform(smsData);
+            DataWriter.writeXml(transformedMessages, xmlOutputPath);
+            return ResponseEntity.ok("Transformed messages saved as XML.");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving transformed messages as XML: " + e.getMessage());
+        }
     }
 }
