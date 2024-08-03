@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 public class Member {
-    @JsonProperty("first")
+    @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty("last")
+    @JsonProperty("last_name")
     private String lastName;
 
-    @JsonProperty("middle")
+    @JsonProperty("middle_name")
     private String middleName;
 
     @JsonProperty("handle_id")
@@ -28,5 +28,4 @@ public class Member {
 
     @JsonProperty("thumb_path")
     private String thumbPath;
-
 }
