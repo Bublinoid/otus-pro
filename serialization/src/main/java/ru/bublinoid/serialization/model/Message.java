@@ -12,7 +12,8 @@ public class Message {
     private String belongNumber;
 
     @JsonProperty("send_date")
-    private String sendDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime sendDate;
 
     @JsonProperty("text")
     private String text;
@@ -24,10 +25,12 @@ public class Message {
     private String attributedBody;
 
     @JsonProperty("date")
-    private String date;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime date;
 
     @JsonProperty("date_read")
-    private String dateRead;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateRead;
 
     @JsonProperty("guid")
     private String guid;
@@ -49,5 +52,4 @@ public class Message {
 
     @JsonProperty("service")
     private String service;
-
 }
