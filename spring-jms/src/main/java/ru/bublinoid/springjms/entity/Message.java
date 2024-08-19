@@ -4,10 +4,13 @@ import lombok.Data;
 import ru.bublinoid.springjms.utils.HashField;
 import ru.bublinoid.springjms.utils.Historical;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
-public class Message implements Historical {
+public class Message implements Historical, Serializable {
+    private static final long serialVersionUID = 1L;
+
     @HashField
     private UUID uuid;
 
