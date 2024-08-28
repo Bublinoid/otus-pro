@@ -1,6 +1,6 @@
 rootProject.name = 'otus-home-work-pro'
-include 'jpql'
 
+include 'jpql'
 include 'jpa-hibernate'
 include 'pattern-1'
 include 'test-framework'
