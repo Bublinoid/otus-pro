@@ -46,7 +46,7 @@ public interface Historical {
             ByteBuffer byteBuffer = ByteBuffer.wrap(md.digest());
             final long high = byteBuffer.getLong();
             final long low = byteBuffer.getLong();
-            return new UUID(high, low);
+            return new UUID(Math.abs(high), Math.abs(low));
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("MD5 provider is required on your JVM");
         }
