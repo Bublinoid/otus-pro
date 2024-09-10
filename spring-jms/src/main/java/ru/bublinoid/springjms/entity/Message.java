@@ -3,7 +3,6 @@ package ru.bublinoid.springjms.entity;
 import lombok.Data;
 import ru.bublinoid.springjms.utils.HashField;
 import ru.bublinoid.springjms.utils.Historical;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -17,9 +16,7 @@ public class Message implements Historical, Serializable {
     @HashField
     private String text;
 
-    private UUID hash;
-
-    public Message() {}
+    private transient UUID hash;
 
     public Message(UUID uuid, String text) {
         this.uuid = uuid;
