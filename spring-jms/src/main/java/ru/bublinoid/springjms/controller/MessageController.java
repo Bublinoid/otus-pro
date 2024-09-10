@@ -25,7 +25,6 @@ public class MessageController {
     @PostMapping("/send")
     public String sendMessage(@RequestBody String text) {
         Message message = new Message(UUID.randomUUID(), text);
-        message.setHash(message.generateHash());
         messageSender.sendMessage("message-topic", message);
         logger.info("Message sent with text: {} and hash: {}", message.getText(), message.getHash());
         return "Message sent with hash: " + message.getHash();
