@@ -16,7 +16,7 @@ public class DataTransformer {
 
         for (ChatSession chatSession : smsData.getChatSessions()) {
             String chatIdentifier = chatSession.getChatIdentifier();
-            String memberLastName = chatSession.getMembers().get(0).getLastName();
+            String memberLastName = chatSession.getMembers().get(0).getName();
 
             for (Message message : chatSession.getMessages()) {
                 TransformedMessage transformedMessage = new TransformedMessage(
