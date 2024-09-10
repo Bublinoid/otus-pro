@@ -21,7 +21,6 @@ public class Message implements Historical, Serializable {
     public Message(UUID uuid, String text) {
         this.uuid = uuid;
         this.text = text;
-        this.hash = generateHash();
     }
 
     @Override
@@ -31,6 +30,9 @@ public class Message implements Historical, Serializable {
 
     @Override
     public UUID getHash() {
+        if (this.hash == null) {
+            this.hash = generateHash();
+        }
         return this.hash;
     }
 }

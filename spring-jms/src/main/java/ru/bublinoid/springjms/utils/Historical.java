@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  */
 public interface Historical {
 
-    Logger log = LoggerFactory.getLogger(Historical.class);
+    Logger LOG = LoggerFactory.getLogger(Historical.class);
 
     void setHash(UUID uuid);
     UUID getHash();
@@ -36,7 +36,8 @@ public interface Historical {
 
     static UUID md5(List<?> objects) {
         final String hashFieldValues = objects.stream()
-                .map(Objects::toString)
+                .filter(Objects::nonNull)
+                .map(Object::toString)
                 .map(String::toUpperCase)
                 .collect(Collectors.joining(","));
         try {
@@ -48,9 +49,11 @@ public interface Historical {
             final long low = byteBuffer.getLong();
             return new UUID(Math.abs(high), Math.abs(low));
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("MD5 provider is required on your JVM");
+            throw new IllegalStateException("MD5 provider is required on your JVM", e);
         }
     }
+
+
 
     /**
      * Collects the values of fields annotated with @HashField in the implementing class.
@@ -61,20 +64,23 @@ public interface Historical {
         final Class<? extends Historical> clazz = this.getClass();
         List<Object> fieldValues = new ArrayList<>();
         for (Field f : clazz.getDeclaredFields()) {
-            if (f.isAnnotationPresent(HashField.class)) { // Check if the field is annotated with @HashField
+            if (f.isAnnotationPresent(HashField.class)) {
                 f.setAccessible(true);
                 try {
-                    fieldValues.add(f.get(this)); // Add the field's value to the list
+                    fieldValues.add(f.get(this));
                 } catch (IllegalAccessException e) {
-                    log.error("Error accessing field", e);
+                    LOG.error("Error accessing field", e);
                 }
             }
         }
         if (fieldValues.isEmpty()) {
-            throw new IllegalStateException("No fields annotated with @HashField found in " + clazz.getName());
+            LOG.warn("No fields annotated with @HashField found in {}", clazz.getName());
+            return Stream.empty();
         }
         return fieldValues.stream();
     }
+
+
 
     default UUID generateHash() {
         val thisHashObjects = this.getHashObjects().collect(Collectors.toList());

@@ -17,7 +17,6 @@ public class MessageController {
 
     private final MessageSender messageSender;
 
-    @Autowired
     public MessageController(MessageSender messageSender) {
         this.messageSender = messageSender;
     }
