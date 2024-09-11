@@ -33,6 +33,7 @@
             <option value="$PROJECT_DIR$/serialization" />
             <option value="$PROJECT_DIR$/spring-boot-1" />
             <option value="$PROJECT_DIR$/spring-context" />
+            <option value="$PROJECT_DIR$/spring-jms" />
             <option value="$PROJECT_DIR$/stream-api" />
             <option value="$PROJECT_DIR$/test-framework" />
             <option value="$PROJECT_DIR$/web-server" />
